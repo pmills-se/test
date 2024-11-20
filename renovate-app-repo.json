@@ -1,0 +1,37 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:base"],
+  "packageRules": [
+    {
+      "matchManagers": ["terraform"],
+      "groupName": "Terraform Updates",
+      "commitMessageTopic": "Terraform updates"
+    },
+    {
+      "matchPackageNames": ["hashicorp/terraform"],
+      "allowedVersions": "<1.6.0"
+    },
+    {
+      "matchPackagePrefixes": ["terraform-linters"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "addLabels": ["qa-approved"]
+    },
+    {
+      "matchDatasources": ["terraform-provider"],
+      "schedule": ["after 12am and before 6am"]
+    },
+    {
+      "matchSourceUrlPrefixes": ["https://github.com/sportngin/tflib-"],
+      "groupName": "module-updates"
+    },
+    {
+      "matchSourceUrlPrefixes": ["https://github.com/sportngin/se-actions-workflow-templates"],
+      "groupName": "workflow-templates"
+    }
+  ],
+  "ignorePaths": [
+    "**/terraform.lock.hcl"
+  ],
+  "reviewers": ["team:platform-operations"]
+}
